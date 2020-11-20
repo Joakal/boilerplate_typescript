@@ -24,9 +24,22 @@ export default class ClassComponent extends Vue {
   @Prop(Boolean) readonly active!: boolean;
 
   clickCount = 0;
+  numberVar = 5;
 
   increment() {
     this.clickCount += 1;
+
+    // This should show an error
+    this.numberVar = "number";
+
+    // These two shouldn't show an error
+    this.$axios.post('/login').then(res => console.log('You are logged in!', res)).catch(err => console.log('Oh no, rejected!', err))
+    this.$q.notify({
+      color: 'negative',
+      position: 'top',
+      message: 'This is a notification',
+      icon: 'report_problem'
+    })
   }
 
   get todoCount() {
